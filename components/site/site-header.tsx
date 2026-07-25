@@ -1,32 +1,32 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import { Search, ShoppingBag, User, Menu, X } from 'lucide-react'
-import { useCart } from '@/context/cart-context'
-import { cn } from '@/lib/utils'
+import { useEffect, useRef, useState } from "react";
+import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
+import { useCart } from "@/context/cart-context";
+import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { label: 'Clothing', href: '#featured' },
-  { label: 'Collection', href: '#collection' }
+  { label: "Clothing", href: "#featured" },
+  { label: "Collection", href: "#collection" },
   // { label: 'Story', href: '#story' },
-]
+];
 
 export function SiteHeader() {
-  const { count, openCart } = useCart()
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [userOpen, setUserOpen] = useState(false)
-  const [query, setQuery] = useState('')
-  const userRef = useRef<HTMLDivElement>(null)
+  const { count, openCart } = useCart();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const userRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
       if (userRef.current && !userRef.current.contains(e.target as Node)) {
-        setUserOpen(false)
+        setUserOpen(false);
       }
     }
-    document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
-  }, [])
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
@@ -38,19 +38,32 @@ export function SiteHeader() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            {mobileOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
           </button>
 
-          <a href="#top" className="flex items-center gap-2" aria-label="Tatara home">
-            <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-display text-lg font-bold">
-              工
-            </span>
+          <a
+            href="#top"
+            className="flex items-center gap-2"
+            aria-label="Tatara home"
+          >
+            <img
+              src="/tatara-symbol-128.png"
+              alt="Tatara"
+              className="size-8 object-contain"
+            />
             <span className="font-display text-xl font-bold tracking-tight text-foreground">
               TATARA
             </span>
           </a>
 
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Products">
+          <nav
+            className="hidden items-center gap-6 lg:flex"
+            aria-label="Products"
+          >
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
@@ -116,8 +129,8 @@ export function SiteHeader() {
       {/* Mobile nav drawer */}
       <div
         className={cn(
-          'overflow-hidden border-t border-border transition-all duration-300 lg:hidden',
-          mobileOpen ? 'max-h-96' : 'max-h-0',
+          "overflow-hidden border-t border-border transition-all duration-300 lg:hidden",
+          mobileOpen ? "max-h-96" : "max-h-0",
         )}
       >
         <div className="space-y-1 px-4 py-4">
@@ -142,14 +155,18 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 function UserMenu() {
   return (
     <div className="absolute right-0 top-12 w-72 rounded-xl border border-border bg-popover p-4 shadow-2xl">
-      <h3 className="font-display text-base font-semibold text-popover-foreground">Welcome back</h3>
-      <p className="mt-0.5 text-xs text-muted-foreground">Sign in to track orders and save blades.</p>
+      <h3 className="font-display text-base font-semibold text-popover-foreground">
+        Welcome back
+      </h3>
+      <p className="mt-0.5 text-xs text-muted-foreground">
+        Sign in to track orders and save blades.
+      </p>
       <div className="mt-4 space-y-2">
         <input
           type="email"
@@ -166,11 +183,11 @@ function UserMenu() {
         </button>
       </div>
       <p className="mt-3 text-center text-xs text-muted-foreground">
-        New here?{' '}
+        New here?{" "}
         <a href="#" className="font-medium text-primary hover:underline">
           Create an account
         </a>
       </p>
     </div>
-  )
+  );
 }
