@@ -51,7 +51,7 @@ export function SiteHeader() {
             aria-label="Tatara home"
           >
             <img
-              src="/logo/tatara-symbol-128.png"
+              src="/tatara-symbol-128.png"
               alt="Tatara"
               className="size-8 object-contain"
             />
