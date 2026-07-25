@@ -1,21 +1,21 @@
-import { NewsletterForm } from "./news-letter-form"
+import { NewsletterForm } from "./news-letter-form";
 
-const SOCIALS = ['Instagram', 'X', 'YouTube']
+const SOCIALS = ["Instagram", "X", "YouTube"];
 
 const FOOTER_COLS = [
   {
-    title: 'Shop',
-    links: ['Chef Knives', 'Santoku', 'Nakiri', 'Knife Sets', 'Sharpening'],
+    title: "Shop",
+    links: ["Chef Knives", "Santoku", "Nakiri", "Knife Sets", "Sharpening"],
   },
   {
-    title: 'Company',
-    links: ['Our Story', 'The Workshop', 'Sustainability', 'Careers', 'Press'],
+    title: "Company",
+    links: ["Our Story", "The Workshop", "Sustainability", "Careers", "Press"],
   },
   {
-    title: 'Support',
-    links: ['Shipping', 'Returns', 'Warranty', 'Care Guide', 'Contact'],
+    title: "Support",
+    links: ["Shipping", "Returns", "Warranty", "Care Guide", "Contact"],
   },
-]
+];
 
 export function SiteFooter() {
   return (
@@ -24,23 +24,27 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <a href="#top" className="flex items-center gap-2">
-              <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-display text-lg font-bold">
-                工
-              </span>
+              <img
+                src="/tatara-symbol-128.png"
+                alt="Tatara"
+                className="size-8 object-contain"
+              />
               <span className="font-display text-xl font-bold tracking-tight text-card-foreground">
                 TATARA
               </span>
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground text-pretty">
-              Forged blades built to last a lifetime. Traditional Japanese craft, engineered for the
-              modern kitchen.
+              Forged blades built to last a lifetime. Traditional Japanese
+              craft, engineered for the modern kitchen.
             </p>
-           <NewsletterForm />
+            <NewsletterForm />
           </div>
 
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
-              <h3 className="font-display text-sm font-semibold text-card-foreground">{col.title}</h3>
+              <h3 className="font-display text-sm font-semibold text-card-foreground">
+                {col.title}
+              </h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link}>
@@ -75,5 +79,5 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
