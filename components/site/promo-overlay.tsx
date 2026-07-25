@@ -17,17 +17,17 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     type: 'image',
-    src: '/slides/slide-forge.png',
-    eyebrow: 'New Season',
-    title: 'Forged in Fire',
-    copy: 'Hand-hammered damascus steel, folded 67 times for an edge that lasts a lifetime.',
+    src: '/slides/slide-tatara-hoodies.png',
+    eyebrow: 'Tatara Apparel',
+    title: 'Premium Comfort',
+    copy: 'Experience unmatched warmth and style with our ultra-soft, heavyweight hoodies designed for the perfect everyday fit.',
   },
   {
     type: 'image',
-    src: '/slides/slide-collection.png',
-    eyebrow: 'The Ronin Line',
-    title: 'A Blade for Every Cut',
-    copy: 'From nakiri to gyuto — precision instruments built for the modern kitchen.',
+    src: '/slides/slide-tatara-dryfit.png',
+    eyebrow: 'Performance Collection',
+    title: 'Engineered to Breathe',
+    copy: 'Stay cool and focused. Our advanced moisture-wicking dry-fit tees are built for your toughest workouts and active lifestyles.',
   },
 ]
 
