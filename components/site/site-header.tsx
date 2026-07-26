@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { cn } from "@/lib/utils";
+import { BRAND } from "@/lib/brand";
 
 const NAV_LINKS = [
   { label: "Clothing", href: "#featured" },
@@ -56,7 +57,7 @@ export function SiteHeader() {
               className="size-8 object-contain"
             />
             <span className="font-display text-xl font-bold tracking-tight text-foreground">
-              TATARA
+              {BRAND.styledName}
             </span>
           </a>
 

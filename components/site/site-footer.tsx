@@ -1,3 +1,4 @@
+import { BRAND } from "@/lib/brand";
 import { NewsletterForm } from "./news-letter-form";
 
 const SOCIALS = ["Instagram", "X", "YouTube"];
@@ -30,7 +31,7 @@ export function SiteFooter() {
                 className="size-8 object-contain"
               />
               <span className="font-display text-xl font-bold tracking-tight text-card-foreground">
-                TATARA
+                {BRAND.styledName}
               </span>
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground text-pretty">
