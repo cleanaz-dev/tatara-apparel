@@ -87,7 +87,7 @@ export function OurStory() {
         "
         style={{
           backgroundImage:
-            "url('/images/tatara-story.jpg')",
+            "url('/story-brand.png')",
         }}
       >
         <div
