@@ -20,22 +20,21 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Tatara — Japanese-Inspired Apparel',
+  title: 'Tatara — Apparel',
   description:
-    'Tatara makes premium Japanese-inspired streetwear. Shop heavyweight hoodies, tees, jackets and everyday essentials built to last.',
-  generator: 'v0.app',
+    'Tatara makes premium streetwear. Shop heavyweight hoodies, tees, jackets and everyday essentials built to last.',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/favicon-32x32.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/favicon-32x32.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: '/tatara-symbol-128.svg',
         type: 'image/svg+xml',
       },
     ],
