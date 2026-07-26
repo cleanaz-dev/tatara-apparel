@@ -186,7 +186,7 @@ export function OurStory() {
           </p>
 
           <a
-            href="/shop"
+            href="#featured"
             className="
               mt-10 inline-block
               border border-white/30
