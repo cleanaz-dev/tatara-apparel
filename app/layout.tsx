@@ -26,19 +26,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon-32x32.png',
+        url: '/tatara-logo.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/favicon-32x32.png',
+        url: '/tatara-logo.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/tatara-symbol-128.svg',
+        url: '/tatara-logo.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/tatara-symbol-256.png',
+    apple: '/tatara-logo.png',
   },
 }
 
