@@ -96,9 +96,9 @@ export function OurStory() {
           className="
     absolute inset-0
     bg-linear-to-b
-    from-black/20
-    via-black/40
-    to-black/70
+    from-black/50
+    via-black/60
+    to-black/80
   "
         />
       </div>
