@@ -5,7 +5,7 @@ const SOCIALS = ["Instagram", "X", "YouTube"];
 const FOOTER_COLS = [
   {
     title: "Shop",
-    links: ["Chef Knives", "Santoku", "Nakiri", "Knife Sets", "Sharpening"],
+    links: ["Hoodies", "Shirts", "Jackets", "Accessories"],
   },
   {
     title: "Company",
@@ -34,9 +34,10 @@ export function SiteFooter() {
               </span>
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground text-pretty">
-              Forged blades built to last a lifetime. Traditional Japanese
-              craft, engineered for the modern kitchen.
+              Premium apparel designed for comfort and performance. Elevated
+              essentials crafted for your everyday life.
             </p>
+
             <NewsletterForm />
           </div>
 
@@ -63,7 +64,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Tatara Blades. All rights reserved.
+            © {new Date().getFullYear()} Tatara Apparel. All rights reserved.
           </p>
           <div className="flex items-center gap-1">
             {SOCIALS.map((name) => (
