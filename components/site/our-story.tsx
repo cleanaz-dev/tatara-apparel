@@ -20,7 +20,7 @@ function useReveal() {
       },
       {
         threshold: 0.35,
-      }
+      },
     );
 
     observer.observe(el);
@@ -36,10 +36,7 @@ type StoryBlockProps = {
   children: React.ReactNode;
 };
 
-function StoryBlock({
-  align = "left",
-  children,
-}: StoryBlockProps) {
+function StoryBlock({ align = "left", children }: StoryBlockProps) {
   const { ref, visible } = useReveal();
 
   const alignment = {
@@ -55,11 +52,7 @@ function StoryBlock({
         w-full max-w-xl 
         transition-all duration-1000 ease-out
         ${alignment[align]}
-        ${
-          visible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-12 opacity-0"
-        }
+        ${visible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"}
       `}
     >
       {children}
@@ -86,11 +79,10 @@ export function OurStory() {
           bg-fixed
         "
         style={{
-          backgroundImage:
-            "url('/story-brand.png')",
+          backgroundImage: "url('/story-brand.png')",
         }}
       >
-        <div
+        {/* <div
           className="
             absolute inset-0
             bg-black/70
@@ -99,6 +91,15 @@ export function OurStory() {
             via-black/80
             to-black
           "
+        /> */}
+        <div
+          className="
+    absolute inset-0
+    bg-linear-to-b
+    from-black/20
+    via-black/40
+    to-black/70
+  "
         />
       </div>
 
@@ -119,7 +120,6 @@ export function OurStory() {
           </p>
         </StoryBlock>
 
-
         {/* 2 */}
         <StoryBlock align="left">
           <p className="text-lg leading-relaxed text-white/90 md:text-2xl">
@@ -132,38 +132,31 @@ export function OurStory() {
               consistency over comfort
             </span>
             , and{" "}
-            <span className="font-semibold text-white">
-              purpose over hype
-            </span>
-            .
+            <span className="font-semibold text-white">purpose over hype</span>.
           </p>
 
           <p className="mt-6 text-base leading-relaxed text-white/70 md:text-lg">
-            Inspired by the relentless spirit of elite martial
-            artists like Canada's own Simon Marcus, we create
-            premium apparel that carries the same mindset from
-            the gym to everyday life — not because everyone is a
-            champion, but because everyone has something worth
+            Inspired by the relentless spirit of elite martial artists like
+            Canada's own Simon Marcus, we create premium apparel that carries
+            the same mindset from the gym to everyday life — not because
+            everyone is a champion, but because everyone has something worth
             fighting for.
           </p>
         </StoryBlock>
 
-
         {/* 3 */}
         <StoryBlock align="right">
           <p className="text-lg leading-relaxed text-white/90 md:text-2xl">
-            Hoodies, tees, and essentials designed with
-            uncompromising quality, timeless style, and everyday
-            comfort.
+            Hoodies, tees, and essentials designed with uncompromising quality,
+            timeless style, and everyday comfort.
           </p>
 
           <p className="mt-6 text-base leading-relaxed text-white/70 md:text-lg">
-            Whether you're walking into the gym before sunrise,
-            recovering after a hard training session, or simply
-            living with intention — Tatara moves with you.
+            Whether you're walking into the gym before sunrise, recovering after
+            a hard training session, or simply living with intention — Tatara
+            moves with you.
           </p>
         </StoryBlock>
-
 
         {/* 4 */}
         <StoryBlock align="left">
@@ -174,16 +167,13 @@ export function OurStory() {
           </p>
         </StoryBlock>
 
-
         {/* 5 */}
         <StoryBlock align="right">
           <p className="text-lg leading-relaxed text-white/90 md:text-2xl">
-            It's apparel for people who earn their confidence
-            through hard work, respect the process, and never
-            stop improving.
+            It's apparel for people who earn their confidence through hard work,
+            respect the process, and never stop improving.
           </p>
         </StoryBlock>
-
 
         {/* 6 */}
         <StoryBlock align="center">
