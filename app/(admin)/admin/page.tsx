@@ -11,7 +11,7 @@ import {
   FileText
 } from "lucide-react";
 
-export default async function AdminDashboardPage() {
+export default async function Page() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
