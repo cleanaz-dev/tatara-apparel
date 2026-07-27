@@ -6,11 +6,11 @@ import { SiteFooter } from "./site-footer";
 
 export default function SiteWrapper() {
   return (
-    <>
+    <div>
       <HeroShop />
       <ProductMarquee />
       <PromoOverlay />
       <OurStory />
-    </>
+    </div>
   )
 }
