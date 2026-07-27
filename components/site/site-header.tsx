@@ -3,36 +3,40 @@
 import { useEffect, useRef, useState } from "react";
 import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
 import { useCart } from "@/context/cart-context";
+import { useSite } from "@/context/site-context";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/brand";
 
 const NAV_LINKS = [
   { label: "Clothing", href: "#featured" },
   { label: "Collection", href: "#collection" },
-  // { label: 'Story', href: '#story' },
 ];
 
 export function SiteHeader() {
   const { count, openCart } = useCart();
+  const { setIsPromoOpen, isUserMenuOpen, setIsUserMenuOpen } = useSite();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userOpen, setUserOpen] = useState(false);
   const [query, setQuery] = useState("");
   const userRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
       if (userRef.current && !userRef.current.contains(e.target as Node)) {
-        setUserOpen(false);
+        setIsUserMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
-  }, []);
+  }, [setIsUserMenuOpen]);
+
+  function handleNavClick() {
+    setIsPromoOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-        {/* Left: logo + nav */}
         <div className="flex items-center gap-8">
           <button
             className="lg:hidden text-foreground"
@@ -48,6 +52,7 @@ export function SiteHeader() {
 
           <a
             href="#top"
+            onClick={handleNavClick}
             className="flex items-center gap-2"
             aria-label="Tatara home"
           >
@@ -69,6 +74,7 @@ export function SiteHeader() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={handleNavClick}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -77,7 +83,6 @@ export function SiteHeader() {
           </nav>
         </div>
 
-        {/* Center: search */}
         <div className="mx-auto hidden w-full max-w-md md:block">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -91,7 +96,6 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Right: cart + user */}
         <div className="ml-auto flex items-center gap-1 md:ml-0">
           <button
             className="flex size-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary md:hidden"
@@ -115,19 +119,20 @@ export function SiteHeader() {
 
           <div className="relative" ref={userRef}>
             <button
-              onClick={() => setUserOpen((v) => !v)}
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               className="flex size-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary"
               aria-label="Account"
-              aria-expanded={userOpen}
+              aria-expanded={isUserMenuOpen}
             >
               <User className="size-5" />
             </button>
-            {userOpen && <UserMenu />}
+            {isUserMenuOpen && (
+              <UserMenu onSuccess={() => setIsUserMenuOpen(false)} />
+            )}
           </div>
         </div>
       </div>
 
-      {/* Mobile nav drawer */}
       <div
         className={cn(
           "overflow-hidden border-t border-border transition-all duration-300 lg:hidden",
@@ -147,7 +152,10 @@ export function SiteHeader() {
             <a
               key={link.label}
               href={link.href}
-              onClick={() => setMobileOpen(false)}
+              onClick={() => {
+                setMobileOpen(false);
+                handleNavClick();
+              }}
               className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
               {link.label}
@@ -159,28 +167,53 @@ export function SiteHeader() {
   );
 }
 
-function UserMenu() {
+function UserMenu({ onSuccess }: { onSuccess: () => void }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSignIn() {
+    setError(null);
+    setLoading(true);
+    const { error } = await authClient.signIn.email({ email, password });
+    setLoading(false);
+
+    if (error) {
+      setError(error.message ?? "Sign in failed. Check your details.");
+      return;
+    }
+
+    onSuccess();
+  }
+
   return (
     <div className="absolute right-0 top-12 w-72 rounded-xl border border-border bg-popover p-4 shadow-2xl">
       <h3 className="font-display text-base font-semibold text-popover-foreground">
         Welcome back
       </h3>
-      <p className="mt-0.5 text-xs text-muted-foreground">
-        Sign in to track orders and save blades.
-      </p>
       <div className="mt-4 space-y-2">
         <input
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="h-9 w-full rounded-md border border-border bg-secondary/60 px-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
         />
         <input
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="h-9 w-full rounded-md border border-border bg-secondary/60 px-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
         />
-        <button className="h-9 w-full rounded-md bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">
-          Sign in
+        {error && <p className="text-xs text-destructive">{error}</p>}
+        <button
+          onClick={handleSignIn}
+          disabled={loading}
+          className="h-9 w-full rounded-md bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+        >
+          {loading ? "Signing in..." : "Sign in"}
         </button>
       </div>
       <p className="mt-3 text-center text-xs text-muted-foreground">

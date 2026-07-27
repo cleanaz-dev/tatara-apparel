@@ -7,16 +7,20 @@ import { PromoOverlay } from "@/components/site/promo-overlay";
 interface SiteContextType {
   isPromoOpen: boolean;
   setIsPromoOpen: (open: boolean) => void;
-  // later: isNewsletterOpen, isSizeGuideOpen, isMobileNavOpen, etc.
+  isUserMenuOpen: boolean;
+  setIsUserMenuOpen: (open: boolean) => void;
 }
 
 const SiteContext = createContext<SiteContextType | undefined>(undefined);
 
 export function SiteProvider({ children }: { children: React.ReactNode }) {
   const [isPromoOpen, setIsPromoOpen] = useState(true);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
-    <SiteContext.Provider value={{ isPromoOpen, setIsPromoOpen }}>
+    <SiteContext.Provider
+      value={{ isPromoOpen, setIsPromoOpen, isUserMenuOpen, setIsUserMenuOpen }}
+    >
       {children}
       <PromoOverlay open={isPromoOpen} onOpenChange={setIsPromoOpen} />
     </SiteContext.Provider>
