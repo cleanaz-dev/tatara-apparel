@@ -26,6 +26,11 @@ model User {
   createdAt DateTime @default(now())
   role      UserRole @default(CONSUMER)
 
+  // Better Auth admin plugin fields
+  banned     Boolean?  @default(false)
+  banReason  String?
+  banExpires DateTime?
+
   orders Order[]
 
   // Better Auth will add its own session/account tables via its CLI/adapter

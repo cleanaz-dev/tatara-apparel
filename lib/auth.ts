@@ -3,7 +3,8 @@ import { dash } from "@better-auth/infra";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "../app/generated/prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { ac, admin, dev, consumer } from "./permissions";
 
 const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
@@ -44,5 +45,16 @@ export const auth = betterAuth({
       },
     },
   },
-  plugins: [dash(), admin()],
+  plugins: [
+  dash(),
+  adminPlugin({
+    defaultRole: "CONSUMER",
+    ac,
+    roles: {
+      ADMIN: admin,
+      DEV: dev,
+      CONSUMER: consumer,
+    },
+  }),
+],
 });
