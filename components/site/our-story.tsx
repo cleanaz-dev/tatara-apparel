@@ -73,38 +73,27 @@ export function OurStory() {
       <div
         className="
           sticky top-0
-          h-screen
+          h-[100dvh]
           bg-cover
           bg-center
-          bg-fixed
         "
         style={{
           backgroundImage: "url('/story-brand.png')",
         }}
       >
-        {/* <div
-          className="
-            absolute inset-0
-            bg-black/70
-            bg-gradient-to-b
-            from-black/60
-            via-black/80
-            to-black
-          "
-        /> */}
         <div
           className="
-    absolute inset-0
-    bg-linear-to-b
-    from-black/80
-    via-black/85
-    to-black/90
-  "
+            absolute inset-0
+            bg-linear-to-b
+            from-black/80
+            via-black/85
+            to-black/90
+          "
         />
       </div>
 
       {/* Content scrolls over image */}
-      <div className="relative z-10 -mt-[100vh] space-y-96 px-6 py-32">
+      <div className="relative z-10 -mt-[100dvh] space-y-96 px-6 py-32">
         {/* 1 */}
         <StoryBlock align="center">
           <p className="text-xs uppercase tracking-[0.4em] text-white/60">
