@@ -7,7 +7,7 @@ export default function ShopLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div id="top" className="">
+    <div id="top" >
       <SiteHeader />
       <main className="">
         {children}
