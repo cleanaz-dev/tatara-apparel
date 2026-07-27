@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Search, ShoppingBag, User, Menu, X } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { useSite } from "@/context/site-context";
-import { authClient } from "@/lib/auth-client";
+import { UserMenu } from "@/components/site/user-menu";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/brand";
 
@@ -164,64 +164,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  );
-}
-
-function UserMenu({ onSuccess }: { onSuccess: () => void }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function handleSignIn() {
-    setError(null);
-    setLoading(true);
-    const { error } = await authClient.signIn.email({ email, password });
-    setLoading(false);
-
-    if (error) {
-      setError(error.message ?? "Sign in failed. Check your details.");
-      return;
-    }
-
-    onSuccess();
-  }
-
-  return (
-    <div className="absolute right-0 top-12 w-72 rounded-xl border border-border bg-popover p-4 shadow-2xl">
-      <h3 className="font-display text-base font-semibold text-popover-foreground">
-        Welcome back
-      </h3>
-      <div className="mt-4 space-y-2">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="h-9 w-full rounded-md border border-border bg-secondary/60 px-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="h-9 w-full rounded-md border border-border bg-secondary/60 px-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
-        />
-        {error && <p className="text-xs text-destructive">{error}</p>}
-        <button
-          onClick={handleSignIn}
-          disabled={loading}
-          className="h-9 w-full rounded-md bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-      </div>
-      <p className="mt-3 text-center text-xs text-muted-foreground">
-        New here?{" "}
-        <a href="#" className="font-medium text-primary hover:underline">
-          Create an account
-        </a>
-      </p>
-    </div>
   );
 }
