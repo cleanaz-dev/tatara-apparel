@@ -29,6 +29,8 @@ export const auth = betterAuth({
     "http://localhost:3000",
     "http://lvh.me:3000",
     "http://admin.lvh.me:3000", 
+    "https://admin.tatara-apparel.vercel.app",    // Add your admin subdomain
+    "https://*.tatara-apparel.vercel.app"  
     // You can also use wildcards here (note that protocols are required):
     // "http://*.lvh.me:3000",
     // "https://*.tatara-apparel.vercel.app"
