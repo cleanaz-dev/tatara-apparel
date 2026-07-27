@@ -3,9 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/cart-context'
-import { SiteHeader } from '@/components/site/site-header'
-import { SiteFooter } from '@/components/site/site-footer'
-import { CartDrawer } from '@/components/cart/cart-drawer'
+
 
 const inter = Inter({
   subsets: ['latin'],
