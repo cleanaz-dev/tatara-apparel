@@ -22,6 +22,7 @@ export const auth = betterAuth({
       "tatara-apparel.vercel.app",
       "*.tatara-apparel.vercel.app",
     ],
+    fallback: "http://localhost:3000",
   },
 
   // 2. Enable sharing session cookies between main domain and subdomains
@@ -43,8 +44,5 @@ export const auth = betterAuth({
       },
     },
   },
-  plugins: [
-    dash(),
-    admin()
-  ],
+  plugins: [dash(), admin()],
 });
