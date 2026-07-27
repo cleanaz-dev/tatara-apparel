@@ -25,6 +25,14 @@ export const auth = betterAuth({
     ],
     fallback: "http://localhost:3000",
   },
+   trustedOrigins: [
+    "http://localhost:3000",
+    "http://lvh.me:3000",
+    "http://admin.lvh.me:3000", 
+    // You can also use wildcards here (note that protocols are required):
+    // "http://*.lvh.me:3000",
+    // "https://*.tatara-apparel.vercel.app"
+  ],
 
   // 2. Enable sharing session cookies between main domain and subdomains
   advanced: {

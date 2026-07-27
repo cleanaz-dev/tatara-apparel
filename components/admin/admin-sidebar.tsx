@@ -1,55 +1,94 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { LayoutDashboard, Package, CreditCard, Wand2, Settings, Sword } from "lucide-react"
-import { cn } from "@/lib/utils"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  Package,
+  CreditCard,
+  Wand2,
+  Settings,
+  Sword,
+  Anvil,
+  ShoppingBag
+} from "lucide-react";
 
-// Your navigation structure
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+
 export const navItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Package },
   { name: "Transactions", href: "/admin/transactions", icon: CreditCard },
   { name: "Content Gen", href: "/admin/content", icon: Wand2 },
   { name: "Settings", href: "/admin/settings", icon: Settings },
-]
+];
 
 export function AdminSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
-    <div className="flex h-full max-h-screen flex-col gap-2">
-      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Sword className="h-6 w-6" /> {/* A sword icon for Tatara Blades! */}
-          <span>Tatara Admin</span>
-        </Link>
-      </div>
-      <div className="flex-1 overflow-auto py-2">
-        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            // Exact match for dashboard, partial match for sub-pages
-            const isActive = item.href === '/admin' 
-                ? pathname === item.href 
-                : pathname.startsWith(item.href)
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" render={<Link href="/admin" />}>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-white">
+                <Anvil className="size-4" />
+              </div>
+              <span className="truncate font-semibold">Tatara Admin</span>
+            </SidebarMenuButton>
+            <SidebarMenuButton size="sm" render={<Link href="https://tatara-apparel.vercel.app" />}>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-white p-2">
+                <ShoppingBag className="size-4" />
+              </div>
+              <span className="truncate font-semibold">Tatara Apparel</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                  isActive ? "bg-muted text-primary" : "text-muted-foreground"
-                )}
-              >
-                <Icon className="h-4 w-4" />
-                {item.name}
-              </Link>
-            )
-          })}
-        </nav>
-      </div>
-    </div>
-  )
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  item.href === "/admin"
+                    ? pathname === item.href
+                    : pathname.startsWith(item.href);
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      isActive={isActive}
+                      tooltip={item.name}
+                      render={<Link href={item.href} />}
+                    >
+                      <Icon />
+                      <span>{item.name}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarRail />
+    </Sidebar>
+  );
 }

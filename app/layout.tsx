@@ -49,21 +49,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`bg-background ${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="antialiased font-sans">
+        {/* We keep CartProvider here so cart data persists across the whole app */}
         <CartProvider>
-          <div id="top" className="min-h-svh bg-background">
-            <SiteHeader />
-            <main>{children}</main>
-            <SiteFooter />
-            <CartDrawer />
-          </div>
+          {children}
         </CartProvider>
-        {/* {process.env.NODE_ENV === 'production' && <Analytics />} */}
       </body>
     </html>
   )

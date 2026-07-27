@@ -14,11 +14,13 @@ export function MobileHeader({ user }: { user: any }) {
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
       <Sheet>
-        <SheetTrigger>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
+        <SheetTrigger
+          render={
+            <Button variant="outline" size="icon" className="shrink-0 md:hidden" />
+          }
+        >
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle navigation menu</span>
         </SheetTrigger>
         <SheetContent side="left" className="flex flex-col">
           <SheetTitle className="sr-only">Menu</SheetTitle>
