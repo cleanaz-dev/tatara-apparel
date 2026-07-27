@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
+const ADMIN_CONSOLE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://admin.tatara-apparel.vercel.app"
+    : "http://admin.lvh.me:3000";
+
 export function UserMenu({ onSuccess }: { onSuccess: () => void }) {
   const { data: session, isPending } = authClient.useSession();
   const [email, setEmail] = useState("");
@@ -38,6 +43,8 @@ export function UserMenu({ onSuccess }: { onSuccess: () => void }) {
   }
 
   if (session) {
+    const role = session.user.role;
+
     return (
       <div className="absolute right-0 top-12 w-72 rounded-xl border border-border bg-popover p-4 shadow-2xl">
         <h3 className="font-display text-base font-semibold text-popover-foreground">
@@ -46,12 +53,41 @@ export function UserMenu({ onSuccess }: { onSuccess: () => void }) {
         <p className="mt-0.5 text-xs text-muted-foreground">
           Signed in as {session.user.email}
         </p>
-        <button
-          onClick={handleSignOut}
-          className="mt-4 h-9 w-full rounded-md border border-border text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
-        >
-          Sign out
-        </button>
+
+        <div className="mt-4 space-y-2">
+          {role === "ADMIN" && (
+            <a
+              href={ADMIN_CONSOLE_URL}
+              className="block h-9 w-full rounded-md bg-primary text-center text-sm font-semibold leading-9 text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Admin Console
+            </a>
+          )}
+
+          {role === "CONSUMER" && (
+            <>
+              <a
+                href="/orders"
+                className="block h-9 w-full rounded-md border border-border text-center text-sm font-semibold leading-9 text-foreground transition-colors hover:bg-secondary"
+              >
+                View Orders
+              </a>
+              <a
+                href="/rewards"
+                className="block h-9 w-full rounded-md border border-border text-center text-sm font-semibold leading-9 text-foreground transition-colors hover:bg-secondary"
+              >
+                Rewards
+              </a>
+            </>
+          )}
+
+          <button
+            onClick={handleSignOut}
+            className="h-9 w-full rounded-md border border-border text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+          >
+            Sign out
+          </button>
+        </div>
       </div>
     );
   }
