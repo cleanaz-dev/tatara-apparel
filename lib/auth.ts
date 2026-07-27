@@ -11,6 +11,25 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+
+  // 1. Allow incoming requests from your root domains and subdomains
+  baseURL: {
+    allowedHosts: [
+      "localhost:3000",
+      "lvh.me:3000",
+      "*.lvh.me:3000",
+      "tatara-apparel.vercel.app",
+      "*.tatara-apparel.vercel.app",
+    ],
+  },
+
+  // 2. Enable sharing session cookies between main domain and subdomains
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+    },
+  },
+
   emailAndPassword: {
     enabled: true,
   },

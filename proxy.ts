@@ -1,29 +1,29 @@
+// middleware.ts (placed in root or /src directory)
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Notice the function is now called `proxy` instead of `middleware`
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
-  
-  // Get the hostname from the request (e.g., admin.lvh.me:3000)
   const hostname = req.headers.get('host') || ''
 
-  // Define what counts as your admin domain (Local vs Production)
+  // Define admin subdomains (Local vs Production)
   const isAdminDomain = 
-    hostname.startsWith('admin.lvh.me') ||       // Local testing
-    hostname.startsWith('admin.tatarablades.com') // Production (change to your real domain)
+    hostname.startsWith('admin.lvh.me') || 
+    hostname.startsWith('admin.tatara-apparel.vercel.app')
 
   // If the user is on the admin subdomain...
   if (isAdminDomain) {
-    // Proxy (Rewrite) the URL to your hidden admin folder
-    url.pathname = `/admin-app${url.pathname}`
-    return NextResponse.rewrite(url)
+    // Avoid double-rewriting if the path already starts with /admin
+    if (!url.pathname.startsWith('/admin')) {
+      url.pathname = `/admin${url.pathname}`
+      return NextResponse.rewrite(url)
+    }
   }
 
   return NextResponse.next()
 }
 
-// Keep it fast: ignore static files, images, and standard API routes
 export const config = {
+  // Exclude static assets, Next internal files, and API routes from rewriting
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }

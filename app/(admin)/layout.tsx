@@ -19,12 +19,12 @@ export default async function AdminLayout({
   });
 
   if (!session || session.user.role !== UserRole.ADMIN) {
-    redirect("https://admin.tatarablades.com/login");
+    redirect("https://admin.tatara-apparel.vercel.app/login");
   }
 
   return (
     /* 1. ModalProvider WRAPS EVERYTHING */
-    <ModalProvider>
+    <ModalProvider>ta
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         
         {/* Sidebar is now INSIDE the provider, so it can trigger the modal */}
