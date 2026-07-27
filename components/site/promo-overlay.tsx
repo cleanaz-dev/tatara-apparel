@@ -31,43 +31,44 @@ const SLIDES: Slide[] = [
   },
 ]
 
-export function PromoOverlay() {
-  const [open, setOpen] = useState(true)
+interface PromoOverlayProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
+
+export function PromoOverlay({ open, onOpenChange }: PromoOverlayProps) {
   const [index, setIndex] = useState(0)
 
   const go = useCallback((dir: number) => {
     setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length)
   }, [])
 
-  // Auto-advance
   useEffect(() => {
     if (!open) return
     const id = setInterval(() => go(1), 6000)
     return () => clearInterval(id)
   }, [open, index, go])
 
-  // Keyboard controls
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === 'Escape') onOpenChange(false)
       if (e.key === 'ArrowRight') go(1)
       if (e.key === 'ArrowLeft') go(-1)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open, go])
-
+  }, [open, go, onOpenChange])
 
   useEffect(() => {
-  if (open) {
-    const original = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = original
+    if (open) {
+      const original = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = original
+      }
     }
-  }
-}, [open])
+  }, [open])
 
   if (!open) return null
 
@@ -80,7 +81,6 @@ export function PromoOverlay() {
       aria-modal="true"
       aria-label="Featured promotions"
     >
-      {/* Slides */}
       {SLIDES.map((s, i) => (
         <div
           key={s.src}
@@ -113,11 +113,9 @@ export function PromoOverlay() {
         </div>
       ))}
 
-      {/* Readability gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Content */}
       <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-xl">
           <span className="inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
@@ -130,7 +128,7 @@ export function PromoOverlay() {
             {slide.copy}
           </p>
           <button
-            onClick={() => setOpen(false)}
+            onClick={() => onOpenChange(false)}
             className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
           >
             Shop Now
@@ -138,9 +136,8 @@ export function PromoOverlay() {
         </div>
       </div>
 
-      {/* Close (Shop) button */}
       <button
-        onClick={() => setOpen(false)}
+        onClick={() => onOpenChange(false)}
         className="absolute right-4 top-4 z-10 inline-flex h-10 items-center gap-2 rounded-full border border-border bg-background/70 px-4 text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:bg-secondary sm:right-6 lg:right-8"
         aria-label="Close and go to shop"
       >
@@ -148,7 +145,6 @@ export function PromoOverlay() {
         <X className="size-4" />
       </button>
 
-      {/* Prev / Next */}
       <button
         onClick={() => go(-1)}
         className="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/70 text-foreground backdrop-blur-md transition-colors hover:bg-secondary sm:left-6"
@@ -164,7 +160,6 @@ export function PromoOverlay() {
         <ChevronRight className="size-5" />
       </button>
 
-      {/* Dots */}
       <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
         {SLIDES.map((s, i) => (
           <button
