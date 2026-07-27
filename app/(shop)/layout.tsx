@@ -7,9 +7,9 @@ export default function ShopLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div id="top" className="bg-background flex flex-col">
+    <div id="top" className="">
       <SiteHeader />
-      <main className="flex-1">
+      <main className="">
         {children}
       </main>
       <SiteFooter />
